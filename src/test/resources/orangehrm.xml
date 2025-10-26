@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="OrangeHRM-UI Automation Testing" verbose="1" >
+    <test name="Run on Firefox browser" >
+        <classes>
+            <class name="ui.orangehrm.user.Login_01" />
+        </classes>
+    </test>
+
+</suite>
