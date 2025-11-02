@@ -1,4 +1,4 @@
-package pageObjects.Admin;
+package pageObjects.admin;
 
 public class AdminPageObject {
 }
