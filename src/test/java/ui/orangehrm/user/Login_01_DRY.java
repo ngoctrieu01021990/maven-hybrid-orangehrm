@@ -1,6 +1,8 @@
 package ui.orangehrm.user;
 
 //import từ thư viện
+
+import keywords.Topic_01_Keywords;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,9 +15,6 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-//import class/interface từ package khác
-import keywords.Topic_01_Keywords;
-
 
 public class Login_01_DRY {
     private WebDriver driver;
@@ -27,7 +26,6 @@ public class Login_01_DRY {
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        explicitWait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package javaOOP;
 
+//Parent class
 public class Car {
 
     //thuộc tính/biến/variable
