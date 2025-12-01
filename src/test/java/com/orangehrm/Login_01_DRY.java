@@ -1,4 +1,4 @@
-package ui.orangehrm.user;
+package com.orangehrm;
 
 //import từ thư viện
 
@@ -19,7 +19,7 @@ import java.time.Duration;
 public class Login_01_DRY {
     private WebDriver driver;
     private Topic_01_Keywords topic01Keywords;
-    WebDriverWait explicitWait;
+    //WebDriverWait explicitWait;
 
     @BeforeClass
     public void beforeClass() {
@@ -75,7 +75,8 @@ public class Login_01_DRY {
     }
 
     public boolean isAllLoadingSpinnerInvisible(){
-        return explicitWait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElements(By.cssSelector("div.oxd-loading-spinner"))));
+        return new WebDriverWait(driver,Duration.ofSeconds(30)).
+                until(ExpectedConditions.invisibilityOfAllElements(driver.findElements(By.cssSelector("div.oxd-loading-spinner"))));
     }
 
     @AfterClass
