@@ -1,15 +1,28 @@
 package pageObjects;
 
-public class PersonalDetailPageObject {
+import core.BasePage;
+import org.openqa.selenium.WebDriver;
+import pageUIs.PersonalDetailPageUI;
+
+public class PersonalDetailPageObject extends BasePage {
+    private WebDriver driver;
+
+    public PersonalDetailPageObject(WebDriver driver) {
+        this.driver = driver;
+    }
+
     public String getFirstNameTextboxValue() {
-        return null;
+        waitElementVisible(driver, PersonalDetailPageUI.FIRST_NAME_TEXTBOX);
+        return getElementDOMProperty(driver,PersonalDetailPageUI.FIRST_NAME_TEXTBOX,"value");
     }
 
     public String getLastNameTextboxValue() {
-        return null;
+        waitElementVisible(driver, PersonalDetailPageUI.LAST_NAME_TEXTBOX);
+        return getElementDOMProperty(driver,PersonalDetailPageUI.LAST_NAME_TEXTBOX,"value");
     }
 
     public String getEmployeeIDTextboxValue() {
-        return null;
+        waitElementVisible(driver, PersonalDetailPageUI.EMPLOYEE_ID_TEXTBOX);
+        return getElementDOMProperty(driver,PersonalDetailPageUI.EMPLOYEE_ID_TEXTBOX,"value");
     }
 }

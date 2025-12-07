@@ -6,21 +6,7 @@
     <test name="Run on FIREFOX browser">
         <parameter name="browser" value="Firefox"/>
         <classes>
-            <class name="com.orangehrm.Login_03_Multiple_Browser"/>
-        </classes>
-    </test>
-
-    <test name="Run on CHORME browser">
-        <parameter name="browser" value="Chrome"/>
-        <classes>
-            <class name="com.orangehrm.Login_03_Multiple_Browser"/>
-        </classes>
-    </test>
-
-    <test name="Run on EDGE browser">
-        <parameter name="browser" value="Edge"/>
-        <classes>
-            <class name="com.orangehrm.Login_03_Multiple_Browser"/>
+            <class name="com.orangehrm.Login_04_Page_Object"/>
         </classes>
     </test>
 

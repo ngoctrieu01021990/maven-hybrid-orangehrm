@@ -23,7 +23,7 @@ public class AddEmployeePageObject extends BasePage {
 
     public String getEmployeeID() {
         waitElementVisible(driver, AddEmployeePageUI.EMPLOYEE_ID_TEXTBOX);
-        return getElementText(driver, AddEmployeePageUI.EMPLOYEE_ID_TEXTBOX);
+        return getElementDOMProperty(driver, AddEmployeePageUI.EMPLOYEE_ID_TEXTBOX,"value");
     }
 
     public void clickToSaveButton() {

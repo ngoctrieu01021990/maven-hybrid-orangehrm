@@ -6,6 +6,7 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.BasePageUI;
 
 import java.time.Duration;
 import java.util.List;
@@ -15,7 +16,7 @@ public class BasePage {
 
     // Hàm static có nhiệm vụ lấy ra đúng instance của chính class này
     // 1 biến static/hàm static có thể gọi ra trực tiếp từ phạm vi class
-    public static BasePage getInstance(){
+    public static BasePage getInstance() {
         return new BasePage();
     }
 
@@ -322,6 +323,10 @@ public class BasePage {
 
     public List<WebElement> waitListElementPresence(WebDriver driver, String locator) {
         return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXPath(locator)));
+    }
+
+    public boolean isLoadingSpinnerDisappear(WebDriver driver) {
+        return waitListElementInvisible(driver, BasePageUI.SPINNER_ICON);
     }
 
     private final int SHORT_TIMEOUT = 15;

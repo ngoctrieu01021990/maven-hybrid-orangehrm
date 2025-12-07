@@ -25,5 +25,6 @@ public class LoginPageObject extends BasePage {
         waitElementClickable(driver, LoginPageUI.LOGIN_BUTTON);
         clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
 
+
     }
 }
