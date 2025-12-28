@@ -23,12 +23,13 @@ public class AddEmployeePageObject extends BasePage {
 
     public String getEmployeeID() {
         waitElementVisible(driver, AddEmployeePageUI.EMPLOYEE_ID_TEXTBOX);
-        return getElementDOMProperty(driver, AddEmployeePageUI.EMPLOYEE_ID_TEXTBOX,"value");
+        return getElementDOMProperty(driver, AddEmployeePageUI.EMPLOYEE_ID_TEXTBOX, "value");
     }
 
-    public void clickToSaveButton() {
+    public PersonalDetailPageObject clickToSaveButton() {
         waitElementVisible(driver, AddEmployeePageUI.SAVE_BUTTON);
-        clickToElement(driver,AddEmployeePageUI.SAVE_BUTTON);
-
+        clickToElement(driver, AddEmployeePageUI.SAVE_BUTTON);
+        waitListElementInvisible(driver, AddEmployeePageUI.SPINNER_ICON);
+        return PageGeneratorGeneric.getPage(PersonalDetailPageObject.class,driver);
     }
 }

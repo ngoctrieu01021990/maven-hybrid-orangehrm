@@ -1,12 +1,12 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="OrangeHRM-UI Automation Testing" verbose="1">
-    <parameter name="appUrl" value="https://opensource-demo.orangehrmlive.com"></parameter>
+    <parameter name="appUrl" value="http://localhost:88/orangehrm"></parameter>
     
     <test name="Run on FIREFOX browser">
         <parameter name="browser" value="Firefox"/>
         <classes>
-            <class name="com.orangehrm.Login_04_Page_Object"/>
+            <class name="com.orangehrm.Login_05_Page_Factory"/>
         </classes>
     </test>
 

@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import pageObjects.*;
 
 
-public class Login_04_Page_Object extends BaseTest {
+public class Login_06_Page_Manager_I extends BaseTest {
 
     @Parameters({"appUrl", "browser"})
     @BeforeClass
