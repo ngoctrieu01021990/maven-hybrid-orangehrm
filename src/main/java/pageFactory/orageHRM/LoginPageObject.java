@@ -1,4 +1,4 @@
-package pageFactory;
+package pageFactory.orageHRM;
 
 import core.BasePageFactory;
 import org.openqa.selenium.WebDriver;

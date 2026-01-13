@@ -1,8 +1,10 @@
-package pageObjects;
+package pageObjects.orangeHRM;
 
 import core.BasePage;
 import org.openqa.selenium.WebDriver;
-import pageUIs.AddEmployeePageUI;
+import pageObjects.PageGenerator;
+import pageObjects.orangeHRM.editNavigation.PersonalDetailPageObject;
+import pageUIs.orangeHRM.editNavigation.AddEmployeePageUI;
 
 public class AddEmployeePageObject extends BasePage {
     private WebDriver driver;
@@ -30,6 +32,6 @@ public class AddEmployeePageObject extends BasePage {
         waitElementVisible(driver, AddEmployeePageUI.SAVE_BUTTON);
         clickToElement(driver, AddEmployeePageUI.SAVE_BUTTON);
         waitListElementInvisible(driver, AddEmployeePageUI.SPINNER_ICON);
-        return PageGeneratorGeneric.getPage(PersonalDetailPageObject.class,driver);
+        return PageGenerator.getPage(PersonalDetailPageObject.class,driver);
     }
 }

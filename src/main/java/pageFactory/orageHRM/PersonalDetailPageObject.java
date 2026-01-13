@@ -1,4 +1,4 @@
-package pageFactory;
+package pageFactory.orageHRM;
 
 import core.BasePageFactory;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class AddEmployeePageObject extends BasePageFactory {
+public class PersonalDetailPageObject extends BasePageFactory {
     private WebDriver driver;
 
     @CacheLookup
@@ -25,36 +25,27 @@ public class AddEmployeePageObject extends BasePageFactory {
     private WebElement employeeIDTextbox;
 
     @CacheLookup
-    @FindBy(xpath = "//button[contains(string(),'Save')]")
-    private WebElement saveButton;
-
-    @CacheLookup
     @FindBy(xpath = "//div[@class='oxd-loading-spinner']")
     private List<WebElement> loadingSpinner;
 
-    public AddEmployeePageObject(WebDriver driver) {
+    public PersonalDetailPageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void enterToFirstNameTextbox(String firstName) {
+    public String getFirstNameTextboxValue() {
         waitElementVisible(driver, firtNameTextbox);
-        sendkeyToElement(firtNameTextbox, firstName);
+        return getElementDOMProperty(firtNameTextbox, "value");
     }
 
-    public void enterToLastNameTextbox(String lastName) {
+    public String getLastNameTextboxValue() {
         waitElementVisible(driver, lastNameTextbox);
-        sendkeyToElement(lastNameTextbox, lastName);
+        return getElementDOMProperty(lastNameTextbox, "value");
     }
 
-    public String getEmployeeID() {
+    public String getEmployeeIDTextboxValue() {
         waitElementVisible(driver, employeeIDTextbox);
         return getElementDOMProperty(employeeIDTextbox, "value");
-    }
-
-    public void clickToSaveButton() {
-        waitElementClickable(driver, saveButton);
-        clickToElement(saveButton);
     }
 
     public boolean isLoadingSpinnerDisappear() {

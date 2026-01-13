@@ -6,6 +6,9 @@ import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.PageGenerator;
+import pageObjects.openCart.admin.AdminLoginPO;
+import pageObjects.openCart.user.UserHomePO;
 import pageUIs.BasePageUI;
 
 import java.time.Duration;
@@ -325,10 +328,41 @@ public class BasePage {
         return new WebDriverWait(driver, Duration.ofSeconds(LONG_TIMEOUT)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByXPath(locator)));
     }
 
+    // orangeHRM
     public boolean isLoadingSpinnerDisappear(WebDriver driver) {
         return waitListElementInvisible(driver, BasePageUI.SPINNER_ICON);
     }
 
+    // openCart
+    public UserHomePO clickToLogoutLinkAtUserSite(WebDriver driver) {
+        waitElementClickable(driver,BasePageUI.USER_MY_ACCOUNT_HEADER);
+        clickToElement(driver,BasePageUI.USER_MY_ACCOUNT_HEADER);
+
+        waitElementClickable(driver,BasePageUI.USER_LOGOUT_LINK_ITEM);
+        clickToElement(driver,BasePageUI.USER_LOGOUT_LINK_ITEM);
+
+        return PageGenerator.getPage(UserHomePO.class, driver);
+    }
+
+    public AdminLoginPO clickToLogoutLinkAtAdminSite(WebDriver driver) {
+        waitElementClickable(driver,BasePageUI.ADMIN_LOGOUT_LINK_ITEM);
+        clickToElement(driver,BasePageUI.ADMIN_LOGOUT_LINK_ITEM);
+        return PageGenerator.getPage(AdminLoginPO.class, driver);
+    }
+
+    public AdminLoginPO openAdminSite(WebDriver driver, String adminURL) {
+        openPageUrl(driver, adminURL);
+        return PageGenerator.getPage(AdminLoginPO.class, driver);
+    }
+
+    public UserHomePO openUserSite(WebDriver driver, String userURL) {
+        openPageUrl(driver, userURL);
+        return PageGenerator.getPage(UserHomePO.class, driver);
+    }
+
+
     private final int SHORT_TIMEOUT = 15;
     private final int LONG_TIMEOUT = 30;
+
+
 }

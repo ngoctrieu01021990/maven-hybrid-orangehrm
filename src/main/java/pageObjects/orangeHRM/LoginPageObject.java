@@ -1,8 +1,9 @@
-package pageObjects;
+package pageObjects.orangeHRM;
 
 import core.BasePage;
 import org.openqa.selenium.WebDriver;
-import pageUIs.LoginPageUI;
+import pageObjects.PageGenerator;
+import pageUIs.orangeHRM.editNavigation.LoginPageUI;
 
 public class LoginPageObject extends BasePage {
     private WebDriver driver;
@@ -24,6 +25,6 @@ public class LoginPageObject extends BasePage {
     public DashboardPageObject clickToLoginButton() {
         waitElementClickable(driver, LoginPageUI.LOGIN_BUTTON);
         clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
-        return PageGeneratorGeneric.getPage(DashboardPageObject.class,driver);
+        return PageGenerator.getPage(DashboardPageObject.class,driver);
     }
 }

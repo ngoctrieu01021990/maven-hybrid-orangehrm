@@ -1,4 +1,4 @@
-package pageUIs;
+package pageUIs.orangeHRM.editNavigation;
 
 public class LoginPageUI {
 public static final String USER_NAME_TEXTBOX="//input[@name='username']";

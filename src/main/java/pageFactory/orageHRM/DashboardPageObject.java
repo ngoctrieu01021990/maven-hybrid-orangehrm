@@ -1,4 +1,4 @@
-package pageFactory;
+package pageFactory.orageHRM;
 
 import core.BasePageFactory;
 import org.openqa.selenium.WebDriver;
@@ -9,25 +9,25 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class EmployeeListPageObject extends BasePageFactory {
+public class DashboardPageObject extends BasePageFactory {
     private WebDriver driver;
 
     @CacheLookup
-    @FindBy(xpath = "//a[text()='Add Employee']")
-    private WebElement addEmployeeButton;
+    @FindBy(xpath = "//span[text()='PIM']/parent::a")
+    private WebElement pimModule;
 
     @CacheLookup
     @FindBy(xpath = "//div[@class='oxd-loading-spinner']")
     private List<WebElement> loadingSpinner;
 
-    public EmployeeListPageObject(WebDriver driver) {
+    public DashboardPageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
     }
 
-    public void clickToAddEmployeeButton() {
-        waitElementClickable(driver, addEmployeeButton);
-        clickToElement(addEmployeeButton);
+    public void clickToPIMModule() {
+        waitElementClickable(driver, pimModule);
+        clickToElement(pimModule);
     }
 
     public boolean isLoadingSpinnerDisappear() {
