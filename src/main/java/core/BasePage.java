@@ -79,6 +79,18 @@ public class BasePage {
         }
     }
 
+    public String getCurrentWindowID(WebDriver driver) {
+        return driver.getWindowHandle();
+    }
+
+    public void openUrlByNewTab(WebDriver driver, String url) {
+        driver.switchTo().newWindow(WindowType.TAB).get(url);
+    }
+
+    public void openUrlByNewWindow(WebDriver driver, String url) {
+        driver.switchTo().newWindow(WindowType.WINDOW).get(url);
+    }
+
     public void switchToWindowByID(WebDriver driver, String windowID) {
         Set<String> allWindows = driver.getWindowHandles();
 
@@ -335,24 +347,23 @@ public class BasePage {
 
     // openCart
     public UserHomePO clickToLogoutLinkAtUserSite(WebDriver driver) {
-        waitElementClickable(driver,BasePageUI.USER_MY_ACCOUNT_HEADER);
-        clickToElement(driver,BasePageUI.USER_MY_ACCOUNT_HEADER);
+        waitElementClickable(driver, BasePageUI.USER_MY_ACCOUNT_HEADER);
+        clickToElement(driver, BasePageUI.USER_MY_ACCOUNT_HEADER);
 
-        waitElementClickable(driver,BasePageUI.USER_LOGOUT_LINK_ITEM);
-        clickToElement(driver,BasePageUI.USER_LOGOUT_LINK_ITEM);
+        waitElementClickable(driver, BasePageUI.USER_LOGOUT_LINK_ITEM);
+        clickToElement(driver, BasePageUI.USER_LOGOUT_LINK_ITEM);
 
         return PageGenerator.getPage(UserHomePO.class, driver);
     }
 
     public AdminLoginPO clickToLogoutLinkAtAdminSite(WebDriver driver) {
-        waitElementClickable(driver,BasePageUI.ADMIN_LOGOUT_LINK_ITEM);
-        clickToElement(driver,BasePageUI.ADMIN_LOGOUT_LINK_ITEM);
+        waitElementClickable(driver, BasePageUI.ADMIN_LOGOUT_LINK_ITEM);
+        clickToElement(driver, BasePageUI.ADMIN_LOGOUT_LINK_ITEM);
         return PageGenerator.getPage(AdminLoginPO.class, driver);
     }
 
-    public AdminLoginPO openAdminSite(WebDriver driver, String adminURL) {
+    public void openAdminSite(WebDriver driver, String adminURL) {
         openPageUrl(driver, adminURL);
-        return PageGenerator.getPage(AdminLoginPO.class, driver);
     }
 
     public UserHomePO openUserSite(WebDriver driver, String userURL) {
@@ -360,6 +371,11 @@ public class BasePage {
         return PageGenerator.getPage(UserHomePO.class, driver);
     }
 
+    public UserHomePO openHomeLogo(WebDriver driver) {
+        waitElementClickable(driver, BasePageUI.USER_HOME_LOGO);
+        clickToElement(driver, BasePageUI.USER_HOME_LOGO);
+        return PageGenerator.getPage(UserHomePO.class, driver);
+    }
 
     private final int SHORT_TIMEOUT = 15;
     private final int LONG_TIMEOUT = 30;
