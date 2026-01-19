@@ -3,26 +3,30 @@ package com.orangehrm;
 //import từ thư viện
 
 import core.BasePage;
-import core.BaseTest;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 
-public class Login_03_Multiple_Browser extends BaseTest {
+
+public class Level_02_BasePage_II_Static {
     private WebDriver driver;
     private BasePage basePage;
-    private String appUrl;
+    private String appUrl = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 
-    @Parameters({"appUrl", "browser"})
+    @Parameters({"appUrl","browser"})
     @BeforeClass
-    public void beforeClass(String appURL, String browserName) {
-        this.appUrl=appURL;
+    public void beforeClass(String appUrl, String browserName) {
+        driver = new FirefoxDriver();
         basePage = BasePage.getInstance();
-        driver = getBrowserDriver(appURL, browserName);
+
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
 
     @Test

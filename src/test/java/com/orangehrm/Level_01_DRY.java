@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 
-public class Login_01_DRY {
+public class Level_01_DRY {
     private WebDriver driver;
     private Topic_01_Keywords topic01Keywords;
     //WebDriverWait explicitWait;

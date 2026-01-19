@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 
-public class Login_02_BasePage_III_Extend extends BasePage {
+public class Level_02_BasePage_III_Extend extends BasePage {
     private WebDriver driver;
     private String appUrl = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 

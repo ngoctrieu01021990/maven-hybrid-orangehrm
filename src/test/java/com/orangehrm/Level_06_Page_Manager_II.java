@@ -9,16 +9,23 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.*;
+import pageObjects.orangeHRM.AddEmployeePageObject;
+import pageObjects.orangeHRM.DashboardPageObject;
+import pageObjects.orangeHRM.EmployeeListPageObject;
+import pageObjects.orangeHRM.LoginPageObject;
+import pageObjects.orangeHRM.editNavigation.ContactDetailPageObject;
+import pageObjects.orangeHRM.editNavigation.PersonalDetailPageObject;
 
 
-public class Login_06_Page_Manager_I extends BaseTest {
+public class Level_06_Page_Manager_II extends BaseTest {
 
     @Parameters({"appUrl", "browser"})
     @BeforeClass
     public void beforeClass(String appURL, String browserName) {
         driver = getBrowserDriver(appURL, browserName);
+
         loginPage = new LoginPageObject(driver);
+
         adminUserName = "automation";
         adminPassword = "Auto123$$##";
         employeeFirstName = "John";
@@ -29,34 +36,35 @@ public class Login_06_Page_Manager_I extends BaseTest {
     public void Employee_01_CreateNewEmployee() {
         loginPage.enterToUsernameTextbox(adminUserName);
         loginPage.enterToPasswordTextbox(adminPassword);
+        dashboardPage = loginPage.clickToLoginButton();
 
-        loginPage.clickToLoginButton();
-        dashboardPage = new DashboardPageObject(driver);
         Assert.assertTrue(dashboardPage.isLoadingSpinnerDisappear(driver));
         dashboardPage.sleepInSecond(2);
 
-        dashboardPage.clickToPIMModule();
-        employeeListPage = new EmployeeListPageObject(driver);
+        employeeListPage = dashboardPage.clickToPIMModule();
         Assert.assertTrue(employeeListPage.isLoadingSpinnerDisappear(driver));
 
-        employeeListPage.clickToAddEmployeeButton();
-        addEmployeePage = new AddEmployeePageObject(driver);
+        addEmployeePage = employeeListPage.clickToAddEmployeeButton();
         Assert.assertTrue(addEmployeePage.isLoadingSpinnerDisappear(driver));
 
         addEmployeePage.enterToFirstNameTextbox(employeeFirstName);
         addEmployeePage.enterToLastNameTextbox(employeeLastName);
         employeeID = addEmployeePage.getEmployeeID();
 
-        addEmployeePage.clickToSaveButton();
-        Assert.assertTrue(addEmployeePage.isLoadingSpinnerDisappear(driver));
+        personalDetailPage = addEmployeePage.clickToSaveButton();
 
-        personalDetailPage = new PersonalDetailPageObject(driver);
         Assert.assertTrue(personalDetailPage.isLoadingSpinnerDisappear(driver));
         personalDetailPage.sleepInSecond(2);
 
         Assert.assertEquals(personalDetailPage.getFirstNameTextboxValue(), employeeFirstName);
         Assert.assertEquals(personalDetailPage.getLastNameTextboxValue(), employeeLastName);
         Assert.assertEquals(personalDetailPage.getEmployeeIDTextboxValue(), employeeID);
+    }
+
+    @Test
+    public void Employee_02_Contact_Detail() {
+        //contactDetailPage=personalDetailPage.openContactDetailPage(driver);
+
     }
 
     @AfterClass
@@ -70,5 +78,6 @@ public class Login_06_Page_Manager_I extends BaseTest {
     private EmployeeListPageObject employeeListPage;
     private AddEmployeePageObject addEmployeePage;
     private PersonalDetailPageObject personalDetailPage;
+    private ContactDetailPageObject contactDetailPage;
     private String employeeID, adminUserName, adminPassword, employeeFirstName, employeeLastName;
 }
