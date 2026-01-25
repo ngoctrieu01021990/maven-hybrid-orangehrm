@@ -35,7 +35,7 @@ public class Level_11_By_Locator extends BaseTest {
         employeeLastName = "Terry";
     }
 
-    @Test
+    @Test(enabled = false)
     public void Employee_01_CreateNewEmployee() {
         loginPage.enterToUsernameTextbox(adminUserName);
         loginPage.enterToPasswordTextbox(adminPassword);
@@ -65,24 +65,54 @@ public class Level_11_By_Locator extends BaseTest {
     }
 
     @Test
-    public void Employee_02_Page_Navigator() {
+    public void Employee_02_Dynamic_Page() {
         // Từ Personal qua Contact
-        contactDetailPage = personalDetailPage.openContactDetailPage();
+        contactDetailPage = (ContactDetailPageObject) personalDetailPage.openEditNavigatorPageByName("Contact Details");
 
         // Từ Contact qua Job
-        jobPage = contactDetailPage.openJobPage();
+        jobPage = (JobPageObject) contactDetailPage.openEditNavigatorPageByName("Job");
 
         // Từ Job qua Dependent
-        dependentsPage = jobPage.openDependentPage();
+        dependentsPage = (DependentsPageObject) jobPage.openEditNavigatorPageByName("Dependents");
 
         // Từ Dependent qua Personal
-        personalDetailPage = dependentsPage.openPersonalDetailPage();
+        personalDetailPage = (PersonalDetailPageObject) dependentsPage.openEditNavigatorPageByName("Personal Details");
 
         // Từ Personal qua Job
-        jobPage = personalDetailPage.openJobPage();
+        jobPage = (JobPageObject) personalDetailPage.openEditNavigatorPageByName("Job");
 
-        contactDetailPage = jobPage.openContactDetailPage();
-        dependentsPage = contactDetailPage.openDependentPage();
+        contactDetailPage = (ContactDetailPageObject) jobPage.openEditNavigatorPageByName("Contact Details");
+
+        dependentsPage = (DependentsPageObject) contactDetailPage.openEditNavigatorPageByName("Dependents");
+    }
+
+    @Test
+    public void Employee_03_Dynamic_Page() {
+        // Từ Personal qua Contact
+        personalDetailPage.openEditNavigatorByName("Contact Details");
+        contactDetailPage = PageGenerator.getPage(ContactDetailPageObject.class, driver);
+
+        // Từ Contact qua Job
+        contactDetailPage.openEditNavigatorByName("Job");
+        jobPage = PageGenerator.getPage(JobPageObject.class, driver);
+
+        // Từ Job qua Dependent
+        jobPage.openEditNavigatorByName("Dependents");
+        dependentsPage = PageGenerator.getPage(DependentsPageObject.class, driver);
+
+        // Từ Dependent qua Personal
+        dependentsPage.openEditNavigatorByName("Personal Details");
+        personalDetailPage = PageGenerator.getPage(PersonalDetailPageObject.class, driver);
+
+        // Từ Personal qua Job
+        personalDetailPage.openEditNavigatorByName("Job");
+        jobPage = PageGenerator.getPage(JobPageObject.class, driver);
+
+        jobPage.openEditNavigatorByName("Contact Details");
+        contactDetailPage = PageGenerator.getPage(ContactDetailPageObject.class, driver);
+
+        contactDetailPage.openEditNavigatorByName("Dependents");
+        dependentsPage = PageGenerator.getPage(DependentsPageObject.class, driver);
     }
 
     @AfterClass

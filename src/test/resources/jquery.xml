@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Data table - UI Automation Testing" verbose="1">
+    <parameter name="url" value="https://www.jqueryscript.net/demo/CRUD-Data-Grid-Plugin-jQuery-Quickgrid/"></parameter>
+    
+    <test name="Run on FIREFOX browser">
+        <parameter name="browser" value="Firefox"/>
+        <classes>
+            <class name="com.jquery.Level_12_DataTable"/>
+        </classes>
+    </test>
+
+</suite>

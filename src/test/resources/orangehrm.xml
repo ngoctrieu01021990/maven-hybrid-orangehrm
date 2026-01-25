@@ -6,7 +6,7 @@
     <test name="Run on FIREFOX browser">
         <parameter name="browser" value="Firefox"/>
         <classes>
-            <class name="com.orangehrm.Level_08_Page_Navigator"/>
+            <class name="com.orangehrm.Level_11_By_Locator"/>
         </classes>
     </test>
 
