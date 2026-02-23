@@ -27,7 +27,6 @@ public class Level_12_DataTable extends BaseTest {
 
     @Test(enabled = false)
     public void Table_01_Paging() {
-        //1. Mở ra 1 trang bất kì dựa vào số trang truyền vào
         homePage.openPageByNumber("5");
         Assert.assertTrue(homePage.isPageActiveByNumber("5"));
 
@@ -41,8 +40,6 @@ public class Level_12_DataTable extends BaseTest {
 
     @Test (enabled = false)
     public void Table_02_Search() {
-        //2. Search ở bất kỳ 1 header textbox nào dựa vào tên cột
-        //3. Có thể verify bất kỳ 1 Country nào (Male/Country/Female/Total,...)
         homePage.enterToHeaderTextboxByName("Country", "Australia");
         homePage.sleepInSecond(3);
         Assert.assertTrue(homePage.isPageinfoDisplayed("145412","Australia","154696","300109"));
@@ -63,7 +60,6 @@ public class Level_12_DataTable extends BaseTest {
         homePage.enterToHeaderTextboxByName("Country", "Bahrain");
         homePage.sleepInSecond(3);
 
-        //4. Có thể xóa/edit bất kỳ 1 Country nào dựa vào tên Country
         homePage.clickToActionByCountryName("Bahrain","remove");
         homePage.refreshToPage(driver);
 
@@ -98,13 +94,8 @@ public class Level_12_DataTable extends BaseTest {
 
     @Test
     public void Table_05_Get_All_Value() {
-        //UI
-        List<String> countryActualValue =  homePage.getColumnAllValueByColumnName("Country");
-
-        List<String> femaleActualValue =  homePage.getColumnAllValueByColumnName("Females");
-
-        // Database/API/File
-
+        List<String> columnActualValue =  homePage.getColumnAllValueByColumnName("Country");
+        System.out.println(columnActualValue.size());
     }
 
     @AfterClass

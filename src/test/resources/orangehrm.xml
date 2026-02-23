@@ -2,11 +2,14 @@
 
 <suite name="OrangeHRM-UI Automation Testing" verbose="1">
     <parameter name="appUrl" value="http://localhost:88/orangehrm"></parameter>
+    <listeners>
+        <listener class-name="core.MethodListener"></listener>
+    </listeners>
     
     <test name="Run on FIREFOX browser">
         <parameter name="browser" value="Firefox"/>
         <classes>
-            <class name="com.orangehrm.Level_11_By_Locator"/>
+            <class name="com.orangehrm.Level_12_Assert_Verify"/>
         </classes>
     </test>
 

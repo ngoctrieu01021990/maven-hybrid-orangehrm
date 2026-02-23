@@ -86,6 +86,7 @@ public class HomePageObject extends BasePage {
 
         for (WebElement page : allPage) {
             page.click();
+
             List<WebElement> columnAllValueElement = getListElement(driver, HomePageUI.DYNAMIC_COLUMN_INDEX, String.valueOf(columnIndex));
 
             for (WebElement value : columnAllValueElement) {
@@ -94,4 +95,23 @@ public class HomePageObject extends BasePage {
         }
         return columnAllValue;
     }
+
+    public boolean isFileLoadedSuccess(String fileName) {
+        waitElementVisible(driver, HomePageUI.IS_FILE_LOADED, fileName);
+        return isElementDisplayed(driver, HomePageUI.IS_FILE_LOADED, fileName);
+    }
+
+    public void clickStartUpload() {
+        List<WebElement> startButtons = getListElement(driver, HomePageUI.START_UPLOAD_BUTTON);
+        for (WebElement starButton:startButtons){
+            waitElementClickable(driver, starButton).click();
+            sleepInSecond(2);
+        }
+    }
+
+    public boolean isFileUploadedSuccess(String fileName) {
+        waitElementVisible(driver, HomePageUI.IS_FILE_UPLOADED, fileName);
+        return isElementDisplayed(driver, HomePageUI.IS_FILE_UPLOADED, fileName);
+    }
+
 }

@@ -33,16 +33,22 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-        <dependency>
+     <!--   <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.11.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>3.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

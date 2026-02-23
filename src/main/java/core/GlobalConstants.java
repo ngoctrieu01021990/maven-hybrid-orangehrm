@@ -1,5 +1,7 @@
 package core;
 
+import java.io.File;
+
 public class GlobalConstants {
     //System info
     public static final String PROJECT_PATH = System.getProperty("user.dir");
@@ -19,24 +21,24 @@ public class GlobalConstants {
     public static final int LONG_TIME = 30;
 
     //download/upload
-    public static final String UPLOAD_PATH = PROJECT_PATH + "/uploadFiles/";
-    public static final String DOWNLOAD_PATH = PROJECT_PATH + "/downloadFiles/";
+    public static final String UPLOAD_PATH = PROJECT_PATH + File.separator + "uploadFiles" + File.separator;
+    public static final String DOWNLOAD_PATH = PROJECT_PATH + File.separator + "downloadFiles" + File.separator;
 
     //retry case failed
     public static final int RETRY_NUMBER = 3;
 
     //brower log/extension
-    public static final String BROWSER_LOG_PATH = PROJECT_PATH + "/browserLogs/";
-    public static final String BROWSER_EXTENSION_PATH = PROJECT_PATH + "/browserExtensions/";
+    public static final String BROWSER_LOG_PATH = PROJECT_PATH + File.separator + "browserLogs" + File.separator;
+    public static final String BROWSER_EXTENSION_PATH = PROJECT_PATH + File.separator + "browserExtensions" + File.separator;
 
     // html report folder
-    public static final String REPORTING_PATH = PROJECT_PATH + "/htmlReportNG/";
-    public static final String EXTENT_PATH = PROJECT_PATH + "/htmlExtent/";
-    public static final String ALLURE_PATH = PROJECT_PATH + "/htmlAllure/";
+    public static final String REPORTING_PATH = PROJECT_PATH + File.separator + "htmlReportNG" + File.separator;
+    public static final String EXTENT_PATH = PROJECT_PATH + File.separator + "htmlExtent" + File.separator;
+    public static final String ALLURE_PATH = PROJECT_PATH + File.separator + "htmlAllure" + File.separator;
 
     // Data test/environment
-    public static final String DATA_TEST_PATH = PROJECT_PATH + "/dataTest/";
-    public static final String ENVIRONMENT_CONFIG_PATH = PROJECT_PATH + "/environmentConfig/";
+    public static final String DATA_TEST_PATH = PROJECT_PATH + File.separator + "dataTest" + File.separator;
+    public static final String ENVIRONMENT_CONFIG_PATH = PROJECT_PATH + File.separator + "environmentConfig" + File.separator;
 
 
 }
