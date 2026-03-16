@@ -1,9 +1,8 @@
 package com.orangehrm;
 
-//import từ thư viện
-
 import core.BaseTest;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -15,8 +14,10 @@ import pageObjects.orangeHRM.EmployeeListPageObject;
 import pageObjects.orangeHRM.LoginPageObject;
 import pageObjects.orangeHRM.editNavigation.PersonalDetailPageObject;
 
+import java.lang.reflect.Method;
 
-public class Level_12_Assert_Verify extends BaseTest {
+
+public class Level_14_Extent_3 extends BaseTest {
 
     @Parameters({"appUrl", "browser"})
     @BeforeClass
@@ -32,33 +33,34 @@ public class Level_12_Assert_Verify extends BaseTest {
     }
 
     @Test
-    public void Employee_01_CreateNewEmployee() {
+    public void Employee_01_CreateNewEmployee(Method method) {
         loginPage.enterToUsernameTextbox(adminUserName);
         loginPage.enterToPasswordTextbox(adminPassword);
-        dashboardPage = loginPage.clickToLoginButton();
 
-        verifyTrue(dashboardPage.isLoadingSpinnerDisappear(driver));
+        dashboardPage = loginPage.clickToLoginButton();
+        Assert.assertTrue(dashboardPage.isLoadingSpinnerDisappear(driver));
         dashboardPage.sleepInSecond(2);
 
         employeeListPage = dashboardPage.clickToPIMModule();
-        verifyTrue(employeeListPage.isLoadingSpinnerDisappear(driver));
+        Assert.assertTrue(employeeListPage.isLoadingSpinnerDisappear(driver)); //Failed
 
         addEmployeePage = employeeListPage.clickToAddEmployeeButton();
-        verifyTrue(addEmployeePage.isLoadingSpinnerDisappear(driver));
+        Assert.assertTrue(addEmployeePage.isLoadingSpinnerDisappear(driver));
 
         addEmployeePage.enterToFirstNameTextbox(employeeFirstName);
         addEmployeePage.enterToLastNameTextbox(employeeLastName);
         employeeID = addEmployeePage.getEmployeeID();
 
         personalDetailPage = addEmployeePage.clickToSaveButton();
-
-        verifyTrue(personalDetailPage.isLoadingSpinnerDisappear(driver));
+        Assert.assertTrue(personalDetailPage.isLoadingSpinnerDisappear(driver));
         personalDetailPage.sleepInSecond(2);
 
-        //Fail
-        verifyEquals(personalDetailPage.getFirstNameTextboxValue(), employeeLastName);
-        verifyEquals(personalDetailPage.getLastNameTextboxValue(), employeeFirstName );
-        verifyEquals(personalDetailPage.getEmployeeIDTextboxValue(), employeeID);
+        Assert.assertEquals(personalDetailPage.getFirstNameTextboxValue(), employeeLastName); //Failed
+
+        Assert.assertEquals(personalDetailPage.getLastNameTextboxValue(), employeeFirstName); //Failed
+
+        Assert.assertEquals(personalDetailPage.getEmployeeIDTextboxValue(), employeeID);
+
     }
 
     @AfterClass

@@ -1,6 +1,7 @@
 package pageObjects.orangeHRM;
 
 import core.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageObjects.PageGenerator;
 import pageUIs.orangeHRM.editNavigation.EmployeeListPageUI;
@@ -12,6 +13,7 @@ public class EmployeeListPageObject extends BasePage {
         this.driver = driver;
     }
 
+    @Step("Click to Add Employee and navigate to Add Employee page")
     public AddEmployeePageObject clickToAddEmployeeButton() {
         waitElementClickable(driver, EmployeeListPageUI.ADD_EMPLOYEE_BUTTON);
         clickToElement(driver,EmployeeListPageUI.ADD_EMPLOYEE_BUTTON);
