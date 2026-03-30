@@ -3,6 +3,19 @@ package pageUIs;
 public class BasePageUI {
     //orangeHRM
     public static final String SPINNER_ICON = "css=div.oxd-loading-spinner";
+    public static final String TEXTBOX_BY_LABEL = "xpath=//label[text()=\"%s\"]/parent::div/following-sibling::div//input";
+    public static final String TEXTBOX_BY_NAME = "xpath=//input[@name='%s']";
+    public static final String BUTTON_BY_TEXT = "xpath=//button[contains(string(),'%s')]";
+    public static final String BUTTON_BY_TEXT_IN_MAIN_TITLE = "xpath=//h6[text()='%s']/following-sibling::form//button[contains(string(),'%s')]";
+    public static final String MODULE_BY_TEXT_IN_MENU_ITEM = "xpath=//span[text()='%s']/parent::a[contains(@class,'oxd-main-menu-item')]";
+    public static final String PARENT_DROPDOWN_BY_LABEL = "xpath=//label[text()='%s']/parent::div/following-sibling::div//i";
+    public static final String CHILD_DROPDOWN_BY_LABEL = "xpath=//label[text()='J%s']/parent::div/following-sibling::div//div[@class='oxd-select-option']/span";
+    public static final String TOAST_MESSAGE_BY_TEXT = "xpath=//p[contains(@class,'oxd-text--toast-message') and text()='%s']";
+    public static final String RADIO_BUTTON_BY_LABEL = "xpath=//label[text()='%s']/input";
+    public static final String CHECKBOX_BY_LABEL = "xpath=//p[text()='%s']/following-sibling::div//span";
+    public static final String USER_DROPDOWN = "css=p.oxd-userdropdown-name";
+    public static final String LOGOUT_LINK = "xpath=//a[@class='oxd-userdropdown-link' and text()='Logout']";
+
 
     //openCart
     public static final String USER_MY_ACCOUNT_HEADER = "XPath=//nav[@id='top']//span[text()='My Account']";

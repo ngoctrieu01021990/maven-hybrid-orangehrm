@@ -5,31 +5,13 @@
     <parameter name="appUrl" value="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"></parameter>
     <listeners>
         <listener class-name="core.MethodListener"></listener>
-<!--        <listener class-name="reportConfig.ExtentTestListener"></listener>-->
-<!--        <listener class-name="reportConfig.ChainTestReport"></listener>-->
-        <listener class-name="reportConfig.AllureTestListener"></listener>
+<!--        <listener class-name="jiraConfigs.JiraListener"></listener>-->
 
     </listeners>
-    
-<!--    <test name="Run on CHROME browser">-->
-<!--        <parameter name="browser" value="chrome"/>-->
-<!--        <classes>-->
-<!--            <class name="com.orangehrm.Level_15_ChainTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-
     <test name="Run on FIREFOX browser">
         <parameter name="browser" value="Firefox"/>
         <classes>
-            <class name="com.orangehrm.Level_15_ChainTest"/>
+            <class name="com.orangehrm.Level_21_Close_Browser"/>
         </classes>
     </test>
-
-<!--    <test name="Run on Edge browser">-->
-<!--        <parameter name="browser" value="Edge"/>-->
-<!--        <classes>-->
-<!--            <class name="com.orangehrm.Level_15_ChainTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-
 </suite>

@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="TechPanda - UI Automation Testing" verbose="1">
+    <parameter name="appUrl" value="https://live.techpanda.org/"></parameter>
+
+    <test name="Run on CHROME browser" preserve-order="true">
+        <parameter name="browser" value="Chrome"/>
+        <classes>
+            <class name="com.techpanda.share.Register"/>
+            <class name="com.techpanda.Level_20_Cookies"/>
+        </classes>
+    </test>
+
+</suite>

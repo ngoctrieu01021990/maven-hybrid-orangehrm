@@ -2,7 +2,15 @@ package core;
 
 import java.io.File;
 
-public class GlobalConstants {
+public final class GlobalConstants {
+
+    public static final String JIRA_SITE_URL = "https://ngoc-trieu.atlassian.net/";
+    public static final String JIRA_USERNAME = "ngoctrieu01021990@gmail.com" ;
+    public static final String JIRA_API_KEY ="" ;
+    public static final String JIRA_PROJECT_KEY = "FRAMEWORK";
+    private GlobalConstants(){
+
+    }
     //System info
     public static final String PROJECT_PATH = System.getProperty("user.dir");
     public static final String OS_NAME = System.getProperty("os.name");

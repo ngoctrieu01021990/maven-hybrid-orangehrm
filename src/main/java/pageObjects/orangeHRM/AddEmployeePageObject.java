@@ -39,4 +39,5 @@ public class AddEmployeePageObject extends BasePage {
         waitListElementInvisible(driver, AddEmployeePageUI.SPINNER_ICON);
         return PageGenerator.getPage(PersonalDetailPageObject.class,driver);
     }
+
 }
