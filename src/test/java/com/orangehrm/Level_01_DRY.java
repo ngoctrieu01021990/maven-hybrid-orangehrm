@@ -4,7 +4,6 @@ package com.orangehrm;
 
 //import keywords.Topic_01_Keywords;
 
-import keywords.Topic_01_Keywords;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -22,7 +21,7 @@ import java.time.Duration;
 
 public class Level_01_DRY {
     private WebDriver driver;
-    private Topic_01_Keywords topic01Keywords;
+    //private Topic_01_Keywords topic01Keywords;
     //WebDriverWait explicitWait;
 
     @BeforeClass
