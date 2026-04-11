@@ -291,6 +291,14 @@ public class BasePage {
         return getWebElement(driver, castParameter(locator, restValue)).getText();
     }
 
+    public Dimension getElementSize(WebDriver driver, String locator) {
+        return getWebElement(driver, locator).getSize();
+    }
+
+    public Dimension getElementSize(WebDriver driver, String locator, String... restValue) {
+        return getWebElement(driver, castParameter(locator, restValue)).getSize();
+    }
+
     public String getElementCss(WebDriver driver, String locator, String propertyName) {
         return getWebElement(driver, locator).getCssValue(propertyName);
     }
@@ -548,6 +556,7 @@ public class BasePage {
             fullFileName = fullFileName + filePath + file + "\n";
         }
         getWebElement(driver, BasePageUI.UPLOAD_FILE_TYPE).sendKeys(fullFileName.trim());
+        sleepInSecond(2);
     }
 
     // openCart
@@ -592,6 +601,13 @@ public class BasePage {
     public void enterToTextboxByLabel(WebDriver driver, String textboxLabel, String valueToSendkey) {
         waitElementVisible(driver, BasePageUI.TEXTBOX_BY_LABEL, textboxLabel);
         sendkeyToElement(driver, BasePageUI.TEXTBOX_BY_LABEL, valueToSendkey, textboxLabel);
+    }
+
+    @Step("Enter to {0} textbox by label with value {1}")
+    public void clearToTextboxByLabel(WebDriver driver, String textboxLabel) {
+        waitElementVisible(driver, BasePageUI.TEXTBOX_BY_LABEL, textboxLabel);
+        sendkeyToElement(driver, BasePageUI.TEXTBOX_BY_LABEL, Keys.chord(Keys.CONTROL, "a"), textboxLabel);
+        sendkeyToElement(driver, BasePageUI.TEXTBOX_BY_LABEL, Keys.DELETE, textboxLabel);
     }
 
     @Step("Enter to {0} textbox by name with value {1}")

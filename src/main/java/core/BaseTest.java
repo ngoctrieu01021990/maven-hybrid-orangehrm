@@ -140,6 +140,18 @@ public class BaseTest {
         return pass;
     }
 
+    protected boolean verifyNotEquals(Object actual, Object expected) {
+        boolean pass = true;
+        try {
+            Assert.assertNotEquals(actual, expected);
+        } catch (Throwable e) {
+            pass = false;
+            VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+            Reporter.getCurrentTestResult().setThrowable(e);
+        }
+        return pass;
+    }
+
     @BeforeSuite
     public void deleteFileInReport() {
         deleteAllFileInFolder("htmlAllure");
