@@ -2,16 +2,15 @@
 
 <suite name="OrangeHRM-UI Automation Testing" verbose="1">
     <!--<parameter name="appUrl" value="http://localhost:88/orangehrm"></parameter>-->
-    <parameter name="appUrl" value="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"></parameter>
+    <parameter name="appUrl" value="https://www.saucedemo.com/"></parameter>
     <listeners>
         <listener class-name="core.MethodListener"></listener>
-<!--        <listener class-name="jiraConfigs.JiraListener"></listener>-->
-
     </listeners>
-    <test name="Run on chrome browser">
-        <parameter name="browser" value="chrome"/>
+
+    <test name="Run on firefox browser">
+        <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="com.orangehrm.Level_23_Browser_Config"/>
+            <class name="com.saucelab.Level_24_Sortable"/>
         </classes>
     </test>
 </suite>

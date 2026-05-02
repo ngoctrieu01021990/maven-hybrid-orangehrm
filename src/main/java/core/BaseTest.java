@@ -2,16 +2,18 @@ package core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.Random;
 
@@ -20,6 +22,9 @@ public class BaseTest {
 
     protected WebDriver getBrowserDriver(String appURL, String browserName) {
         BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
+        Path path = null;
+        File extensionFilePath = null;
+
         switch (browserList) {
             case FIREFOX:
                 driver = new FirefoxDriver();
@@ -31,16 +36,32 @@ public class BaseTest {
                 driver = new SafariDriver();
                 break;
             case EDGE:
-                EdgeOptions edgeOptions = new EdgeOptions();
-                edgeOptions.addArguments("edge skip");
                 driver = new EdgeDriver();
+                break;
+            case HEAD_CHROME:
+                ChromeOptions chromeheadlessOptions = new ChromeOptions();
+                chromeheadlessOptions.addArguments("--headless");
+                chromeheadlessOptions.addArguments("window-size=1366x768");
+                driver = new ChromeDriver(chromeheadlessOptions);
+                break;
+            case HEAD_FIREFOX:
+                FirefoxOptions firefoxheadlessOptions = new FirefoxOptions();
+                firefoxheadlessOptions.addArguments("-headless");
+                firefoxheadlessOptions.addArguments("window-size=1920x1080");
+                driver = new FirefoxDriver(firefoxheadlessOptions);
+                break;
+            case HEAD_EDGE:
+                EdgeOptions edgeheadlessOptions = new EdgeOptions();
+                edgeheadlessOptions.addArguments("--headless");
+                edgeheadlessOptions.addArguments("window-size=1920x1080");
+                driver = new EdgeDriver(edgeheadlessOptions);
                 break;
             default:
                 throw new RuntimeException("Browser name is not valid.");
         }
         driver.get(appURL);
         //driver.manage().window().setPosition(new Point(0,0));
-        //driver.manage().window().maximize();
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
         return driver;
     }
@@ -77,7 +98,7 @@ public class BaseTest {
                 driver.quit();
             }
         } catch (Exception e) {
-           e.getMessage();
+            e.getMessage();
         } finally {
             try {
                 Process process = Runtime.getRuntime().exec(cmd);
@@ -152,7 +173,7 @@ public class BaseTest {
         return pass;
     }
 
-    @BeforeSuite
+   // @BeforeSuite
     public void deleteFileInReport() {
         deleteAllFileInFolder("htmlAllure");
     }
