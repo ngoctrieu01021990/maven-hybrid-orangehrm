@@ -1,6 +1,5 @@
 package pageUIs.orangeHRM.editNavigation;
 
-public class ContactDetailPageUI {
-
+public class SalaryPageUI {
 
 }

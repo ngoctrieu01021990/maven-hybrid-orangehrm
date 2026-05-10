@@ -24,13 +24,23 @@ public class PersonalDetailPageObject extends EditNavigatorPageObject {
         waitElementVisible(driver, PersonalDetailPageUI.LAST_NAME_TEXTBOX);
         return getElementDOMProperty(driver, PersonalDetailPageUI.LAST_NAME_TEXTBOX, "value");
     }
+    @Step("Enter to Firstname textbox with value: {0}")
+    public void enterToFirstNameTextbox(String firstName) {
+        waitElementVisible(driver, PersonalDetailPageUI.FIRST_NAME_TEXTBOX);
+        sendkeyToElement(driver, PersonalDetailPageUI.FIRST_NAME_TEXTBOX, firstName);
+    }
+
+    @Step("Enter to Lastname textbox with value: {0}")
+    public void enterToLastNameTextbox(String lastName) {
+        waitElementVisible(driver, PersonalDetailPageUI.LAST_NAME_TEXTBOX);
+        sendkeyToElement(driver, PersonalDetailPageUI.LAST_NAME_TEXTBOX, lastName);
+    }
 
     @Step("Get EmployeeID textbox attribute value")
     public String getEmployeeIDTextboxValue() {
         waitElementVisible(driver, PersonalDetailPageUI.EMPLOYEE_ID_TEXTBOX);
         return getElementDOMProperty(driver, PersonalDetailPageUI.EMPLOYEE_ID_TEXTBOX, "value");
     }
-
     public void clickToProfileImage() {
         waitElementClickable(driver, PersonalDetailPageUI.EDIT_PROFILE_IMAGE);
         clickToElement(driver, PersonalDetailPageUI.EDIT_PROFILE_IMAGE);
@@ -47,5 +57,7 @@ public class PersonalDetailPageObject extends EditNavigatorPageObject {
         int y = Integer.parseInt(getElementDOMProperty(driver, PersonalDetailPageUI.EDIT_PROFILE_IMAGE, "naturalHeight"));
         return new Dimension(x, y);
     }
+
+
 
 }

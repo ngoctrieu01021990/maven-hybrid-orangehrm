@@ -242,7 +242,7 @@ public class BasePage {
         sleepInSecond(1);
 
         List<WebElement> allItems = new WebDriverWait(driver, Duration.ofSeconds(SHORT_TIMEOUT))
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childLocator)));
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(childLocator)));
         for (WebElement item : allItems) {
             if (item.getText().trim().equals(textItem)) {
                 item.click();
@@ -256,8 +256,10 @@ public class BasePage {
         clickToElement(driver, castParameter(parentLocator, restValue));
         sleepInSecond(1);
 
+        String formattedChildLocator = castParameter(childLocator, restValue);
+
         List<WebElement> allItems = new WebDriverWait(driver, Duration.ofSeconds(SHORT_TIMEOUT))
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(childLocator)));
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(getByLocator(formattedChildLocator)));
         for (WebElement item : allItems) {
             if (item.getText().trim().equals(textItem)) {
                 item.click();
@@ -434,6 +436,16 @@ public class BasePage {
 
     public void scrollToBottomPage(WebDriver driver) {
         ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,document.body.scrollHeight)");
+    }
+
+    public void scrollDown(WebDriver driver) {
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("window.scrollBy(0,500);");
+    }
+
+    public void scrollToTopPage(WebDriver driver) {
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("window.scrollTo(0, 0);");
     }
 
     public void hightlightElement(WebDriver driver, String locator) {
@@ -637,6 +649,31 @@ public class BasePage {
         return getElementDOMProperty(driver, BasePageUI.TEXTBOX_BY_LABEL, "value", textboxLabel);
     }
 
+    public String getDropdownSelectedValueByLabel(WebDriver driver, String labelName) {
+        waitElementVisible(driver, BasePageUI.SELECTED_DROPDOWN_VALUE_BY_LABEL, labelName);
+        return getElementText(driver, BasePageUI.SELECTED_DROPDOWN_VALUE_BY_LABEL, labelName).trim();
+    }
+
+    public boolean isRadioSelectedByLabel(WebDriver driver, String labelName) {
+        waitElementVisible(driver, BasePageUI.RADIO_BUTTON_BY_LABEL, labelName);
+        String classValue = getElementDOMAttribute(driver, BasePageUI.RADIO_BUTTON_BY_LABEL, "class", labelName);
+        return classValue.contains("oxd-radio-input--active");
+    }
+
+    public String getSelectedRadioValue(WebDriver driver, String... restValue) {
+        for (String value : restValue) {
+            if (isRadioSelectedByLabel(driver, value)) {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    public boolean isTableinfoDisplayed(WebDriver driver, String fieldName, String fieldValue) {
+        waitElementVisible(driver, BasePageUI.DYNAMIC_TABLE_INFO, fieldName, fieldValue);
+        return isElementDisplayed(driver, BasePageUI.DYNAMIC_TABLE_INFO, fieldName, fieldValue);
+    }
+
     @Step("Click to {0} module in Menu Item")
     public void clickToModuleByTextInMenuItem(WebDriver driver, String moduleName) {
         waitElementClickable(driver, BasePageUI.MODULE_BY_TEXT_IN_MENU_ITEM, moduleName);
@@ -653,9 +690,26 @@ public class BasePage {
         return isElementUndisplayed(driver, BasePageUI.MODULE_BY_TEXT_IN_MENU_ITEM, moduleName);
     }
 
+    @Step("Click to {0} Menu Item in header")
+    public void clickToMenuItemHeader(WebDriver driver, String moduleName) {
+        waitElementClickable(driver, BasePageUI.MODULE_BY_TEXT_IN_HEADER, moduleName);
+        clickToElement(driver, BasePageUI.MODULE_BY_TEXT_IN_HEADER, moduleName);
+    }
+
+//    @Step("Click to {0} button by text")
+//    public void clickToButtonByGroupText(WebDriver driver, String groupText, String buttonText) {
+//        waitElementClickable(driver, BasePageUI.DYNAMIC_BUTTON_BY_GROUP_LABEL, groupText, buttonText);
+//        clickToElement(driver, BasePageUI.DYNAMIC_BUTTON_BY_GROUP_LABEL, groupText, buttonText);
+//    }
+
     public void selectDropdownByLabel(WebDriver driver, String labelName, String valueToSelect) {
         waitElementClickable(driver, BasePageUI.PARENT_DROPDOWN_BY_LABEL, labelName);
         selectItemInSelectableDropdown(driver, BasePageUI.PARENT_DROPDOWN_BY_LABEL, BasePageUI.CHILD_DROPDOWN_BY_LABEL, valueToSelect, labelName);
+    }
+
+    public void selectDropdownSubChildByLabel(WebDriver driver, String labelName, String valueToSelect) {
+        waitElementClickable(driver, BasePageUI.PARENT_DROPDOWN_BY_LABEL, labelName);
+        selectItemInSelectableDropdown(driver, BasePageUI.PARENT_DROPDOWN_BY_LABEL, BasePageUI.SUB_CHILD_DROPDOWN_BY_LABEL, valueToSelect, labelName);
     }
 
     public boolean isToastMessageDisplayed(WebDriver driver, String toastMessage) {
@@ -681,6 +735,33 @@ public class BasePage {
         clickToElement(driver, BasePageUI.LOGOUT_LINK);
 
         return PageGenerator.getPage(LoginPageObject.class, driver);
+    }
+
+    public void uploadFileByLabel(WebDriver driver, String labelName, String... fileNames) {
+        WebElement uploadElement = getWebElement(driver, BasePageUI.DYNAMIC_UPLOAD_FILE_BY_LABEL, labelName);
+        // Check multiple upload support
+        boolean isMultiple = uploadElement.getDomAttribute("multiple") != null;
+
+        if (!isMultiple && fileNames.length > 1) {
+            throw new RuntimeException("Upload field '" + labelName + "' does not support multiple files.");
+        }
+
+        StringBuilder fullFileName = new StringBuilder();
+
+        for (String fileName : fileNames) {
+            fullFileName.append(GlobalConstants.UPLOAD_PATH).append(fileName).append("\n");
+        }
+        uploadElement.sendKeys(fullFileName.toString().trim());
+        sleepInSecond(2);
+    }
+
+    public boolean isFileUploadedByLabel(WebDriver driver, String labelName, String fileName) {
+        try {
+            waitElementVisible(driver, BasePageUI.DYNAMIC_FILE_NAME_BY_LABEL, labelName, fileName);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     private int SHORT_TIMEOUT = GlobalConstants.SHORT_TIME;

@@ -5,10 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pageUIs.saucelab.ProductPageUI;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class ProductPO extends BasePage {
@@ -29,13 +27,13 @@ public class ProductPO extends BasePage {
         return getSelectedItemInDropdown(driver, ProductPageUI.SORT_DROPDOWN);
     }
 
-    public boolean isProductNameSortAscending() throws ParseException {
+    public boolean isProductNameSortAscending() {
         //Lấy ra hết tất cả element chứa Product name
         List<WebElement> productName = getListElement(driver, ProductPageUI.PRODUCT_NAME_TEXT);
 
         //Khai báo 1 mảng d/s A
         ArrayList<String> productList = new ArrayList<String>();
-        ArrayList<Date> productListDate = new ArrayList<Date>();
+        //ArrayList<Date> productListDate = new ArrayList<Date>();
 
         //Dùng vòng lặp lấy Product name text lưu vào d/s A
         System.out.println("Sort Name tăng dần");

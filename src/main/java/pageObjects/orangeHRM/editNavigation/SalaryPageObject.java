@@ -2,13 +2,12 @@ package pageObjects.orangeHRM.editNavigation;
 
 import org.openqa.selenium.WebDriver;
 
-public class JobPageObject extends EditNavigatorPageObject {
+public class SalaryPageObject extends EditNavigatorPageObject {
     private WebDriver driver;
-    public JobPageObject(WebDriver driver) {
+    public SalaryPageObject(WebDriver driver) {
         super(driver);
         this.driver = driver;
     }
-
 
 
 }

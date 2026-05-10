@@ -1,6 +1,7 @@
 package pageObjects.orangeHRM.editNavigation;
 
 import core.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageObjects.PageGenerator;
 import pageUIs.orangeHRM.editNavigation.EditNavigatorPageUI;
@@ -64,4 +65,40 @@ public class EditNavigatorPageObject extends BasePage {
         clickToElement(driver, EditNavigatorPageUI.DYNAMIC_LINK_BY_PAGE_NAME, pageName);
 
     }
+
+    @Step("Click to {0} module in Menu Item profile")
+    public void clickToMenuProfile(WebDriver driver, String moduleName) {
+        waitElementClickable(driver, EditNavigatorPageUI.MODULE_BY_TEXT_IN_MENU_PROFILE_ITEM, moduleName);
+        clickToElement(driver, EditNavigatorPageUI.MODULE_BY_TEXT_IN_MENU_PROFILE_ITEM, moduleName);
+    }
+
+    @Step("Click to {0} button by text")
+    public void clickToButtonByGroupText(WebDriver driver, String groupText, String buttonText) {
+        waitElementClickable(driver, EditNavigatorPageUI.DYNAMIC_BUTTON_BY_GROUP_LABEL, groupText, buttonText);
+        clickToElement(driver, EditNavigatorPageUI.DYNAMIC_BUTTON_BY_GROUP_LABEL, groupText, buttonText);
+    }
+
+    public boolean isTableinfoDisplayed(String fieldName, String fieldValue) {
+        waitElementVisible(driver, EditNavigatorPageUI.DYNAMIC_TABLE_INFO, fieldName, fieldValue);
+        return isElementDisplayed(driver, EditNavigatorPageUI.DYNAMIC_TABLE_INFO, fieldName, fieldValue);
+    }
+
+    @Step("Enter to {0} date picker by label with value {1}")
+    public void enterToDatePickerByLabel(WebDriver driver, String dateLabel, String valueDate) {
+        waitElementVisible(driver, EditNavigatorPageUI.DYNAMIC_DATE_PICKER_BY_LABEL, dateLabel);
+        sendkeyToElement(driver, EditNavigatorPageUI.DYNAMIC_DATE_PICKER_BY_LABEL, valueDate, dateLabel);
+    }
+
+    public String getDatepickerValueByLabel(WebDriver driver, String dateValue) {
+        waitElementVisible(driver, EditNavigatorPageUI.DYNAMIC_DATE_PICKER_BY_LABEL, dateValue);
+        return getElementDOMProperty(driver, EditNavigatorPageUI.DYNAMIC_DATE_PICKER_BY_LABEL, "value", dateValue);
+    }
+
+
+    @Step("Enter to {0} textbox by label with value {1}")
+    public void enterToTextByLabel(WebDriver driver, String textboxLabel, String index, String valueToSendkey) {
+        waitElementVisible(driver, EditNavigatorPageUI.TEXTBOX_BY_LABEL, textboxLabel, index);
+        sendkeyToElement(driver, EditNavigatorPageUI.TEXTBOX_BY_LABEL, valueToSendkey, textboxLabel, index);
+    }
+
 }
