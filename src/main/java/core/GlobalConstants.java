@@ -25,6 +25,9 @@ public final class GlobalConstants {
     public static final String ADMIN_USERNAME = "automation";
     public static final String ADMIN_PASSWORD = "Auto123$$##";
 
+    public static final String ORANGEHRM_ADMIN_USERNAME = "Admin";
+    public static final String ORANGEHRM_ADMIN_PASSWORD = "admin123";
+
     //wait info
     public static final int SHORT_TIME = 10;
     public static final int LONG_TIME = 30;
@@ -46,7 +49,7 @@ public final class GlobalConstants {
     public static final String ALLURE_PATH = PROJECT_PATH + File.separator + "htmlAllure" + File.separator;
 
     // Data test/environment
-    public static final String DATA_TEST_PATH = PROJECT_PATH + File.separator + "dataTest" + File.separator;
+    public static final String DATA_TEST_PATH = PROJECT_PATH + File.separator + "dataFile" + File.separator;
     public static final String ENVIRONMENT_CONFIG_PATH = PROJECT_PATH + File.separator + "environmentConfig" + File.separator;
 
 

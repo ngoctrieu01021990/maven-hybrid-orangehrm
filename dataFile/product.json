@@ -1,0 +1,14 @@
+{
+  "Register": {
+    "fullname": "Automation"
+  },
+  "Login": {
+    "username": "john.terry",
+    "password": "Automation@12345"
+  },
+  "firstname": "John",
+  "lastname": "Terry",
+  "dob": "01/01/1990",
+  "email": "automation123@gmail.com",
+  "address": "Ha Noi"
+}

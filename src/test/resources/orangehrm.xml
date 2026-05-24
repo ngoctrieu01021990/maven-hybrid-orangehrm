@@ -5,13 +5,22 @@
     <parameter name="appUrl" value="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"></parameter>
     <listeners>
         <listener class-name="core.MethodListener"></listener>
-<!--        <listener class-name="jiraConfigs.JiraListener"></listener>-->
-
+        <!--        <listener class-name="jiraConfigs.JiraListener"></listener>-->
     </listeners>
+
     <test name="Run on firefox browser">
         <parameter name="browser" value="firefox"/>
+
+                <classes>
+                    <class name="com.orangehrm.Level_25_DataTest_VI_Excel"/>
+                </classes>
+    </test>
+
+    <test name="Run on chrome browser">
+        <parameter name="browser" value="chrome"/>
+
         <classes>
-            <class name="com.orangehrm.Level_22_LiveCode"/>
+            <class name="com.orangehrm.Level_25_DataTest_VI_Excel"/>
         </classes>
     </test>
 </suite>
