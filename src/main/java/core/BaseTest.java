@@ -20,7 +20,7 @@ import java.util.Random;
 public class BaseTest {
     private WebDriver driver;
 
-    protected WebDriver getBrowserDriver(String appURL, String browserName) {
+    protected WebDriver getBrowserDriver(String serverName, String browserName) {
         BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
         Path path = null;
         File extensionFilePath = null;
@@ -59,11 +59,30 @@ public class BaseTest {
             default:
                 throw new RuntimeException("Browser name is not valid.");
         }
-        driver.get(appURL);
+        driver.get(getEnvironmentUrl(serverName));
         //driver.manage().window().setPosition(new Point(0,0));
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
         return driver;
+    }
+
+    private String getEnvironmentUrl(String environmentName) {
+        String envUrl = null;
+        switch (environmentName) {
+            case "dev":
+                envUrl = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+                break;
+            case "test":
+                envUrl = "https://test.orangehrmlive.com/";
+                break;
+            case "staging":
+                envUrl = "https://staging.orangehrmlive.com/";
+                break;
+            case "live":
+                envUrl = "https://live.orangehrmlive.com/";
+                break;
+        }
+        return envUrl;
     }
 
     public WebDriver getDriver() {
@@ -173,7 +192,7 @@ public class BaseTest {
         return pass;
     }
 
-   // @BeforeSuite
+    // @BeforeSuite
     public void deleteFileInReport() {
         deleteAllFileInFolder("htmlAllure");
     }

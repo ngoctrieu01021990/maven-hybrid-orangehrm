@@ -12,11 +12,12 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <selenium.version>4.37.0</selenium.version>
-        <testng.version>7.12.0</testng.version>
+        <selenium.version>LATEST</selenium.version>
+        <testng.version>LATEST</testng.version>
         <aspectj.version>1.9.24</aspectj.version>
         <jackson.version>3.1.1</jackson.version>
         <poi.version>5.5.1</poi.version>
+        <environmentName>dev</environmentName>
 
 
     </properties>
@@ -118,6 +119,13 @@
             <groupId>net.rcarz</groupId>
             <artifactId>jira-client</artifactId>
             <version>0.5</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner</artifactId>
+            <version>1.0.12</version>
             <scope>compile</scope>
         </dependency>
 
