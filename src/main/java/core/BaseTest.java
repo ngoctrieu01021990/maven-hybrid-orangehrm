@@ -1,5 +1,6 @@
 package core;
 
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -7,14 +8,25 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 import org.testng.Assert;
 import org.testng.Reporter;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.devicefarm.DeviceFarmClient;
+import software.amazon.awssdk.services.devicefarm.model.CreateTestGridUrlRequest;
+import software.amazon.awssdk.services.devicefarm.model.CreateTestGridUrlResponse;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Random;
 
 public class BaseTest {
@@ -61,6 +73,224 @@ public class BaseTest {
         }
         driver.get(getEnvironmentUrl(serverName));
         //driver.manage().window().setPosition(new Point(0,0));
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
+        return driver;
+    }
+
+    //CLOUD: BrowserStack
+    protected WebDriver getBrowserDriverBrowserStack(String appURL, String osName, String osVersion, String browserName, String browserVersion) {
+        MutableCapabilities capabilities = new MutableCapabilities();
+        HashMap<String, Object> bstackOptions = new HashMap<String, Object>();
+        capabilities.setCapability("browserName", "Chrome");
+        bstackOptions.put("os", osName);
+        bstackOptions.put("osVersion", osVersion);
+        bstackOptions.put("browserVersion", browserVersion);
+        bstackOptions.put("userName", GlobalConstants.BROWSER_STACK_USERNAME);
+        bstackOptions.put("accessKey", GlobalConstants.BROWSER_STACK_AUTOMATE_KEY);
+        bstackOptions.put("seleniumVersion", "4.43.0");
+        capabilities.setCapability("bstack:options", bstackOptions);
+
+        try {
+            driver = new RemoteWebDriver(new URL(GlobalConstants.BROWSER_STACK_URL), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        driver.get(appURL);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
+        return driver;
+    }
+
+    //CLOUD: SauceLab
+    protected WebDriver getBrowserDriverSauceLab(String appURL, String platformName, String browserName, String browserVersion) {
+        MutableCapabilities capability = null;
+        browserName = browserName.toLowerCase();
+
+        switch (browserName) {
+            case "firefox":
+                FirefoxOptions fOptions = new FirefoxOptions();
+                fOptions.setPlatformName(platformName);
+                fOptions.setBrowserVersion(browserVersion);
+                capability = fOptions;
+                break;
+            case "chrome":
+                ChromeOptions cOptions = new ChromeOptions();
+                cOptions.setPlatformName(platformName);
+                cOptions.setBrowserVersion(browserVersion);
+                capability = cOptions;
+                break;
+            case "edge":
+                EdgeOptions eOptions = new EdgeOptions();
+                eOptions.setPlatformName(platformName);
+                eOptions.setBrowserVersion(browserVersion);
+                capability = eOptions;
+                break;
+            case "safari":
+                SafariOptions sOptions = new SafariOptions();
+                sOptions.setPlatformName(platformName);
+                sOptions.setBrowserVersion(browserVersion);
+                capability = sOptions;
+                break;
+            default:
+                throw new RuntimeException("Browser is not valid!");
+        }
+
+        HashMap<String, String> sauceOptions = new HashMap<String, String>();
+        sauceOptions.put("username", GlobalConstants.SAUCE_USERNAME);
+        sauceOptions.put("accessKey", GlobalConstants.SAUCE_AUTOMATE_KEY);
+        sauceOptions.put("build", "automation-fc-build");
+        sauceOptions.put("name", "Run on " + platformName + " | " + browserName + " | " + browserVersion);
+
+        capability.setCapability("sauce:options", sauceOptions);
+
+        try {
+            driver = new RemoteWebDriver(new URL(GlobalConstants.SAUCE_URL), capability);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        driver.get(appURL);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
+        return driver;
+    }
+
+    //CLOUD: BITBAR
+    protected WebDriver getBrowserDriverBitBar(String appURL, String platformName, String platformVersion, String browserName, String browserVersion) {
+        MutableCapabilities capabilities = new MutableCapabilities();
+        HashMap<String, String> bitbarOptions = new HashMap<String, String>();
+
+        capabilities.setCapability("platformName", platformName);
+        capabilities.setCapability("browserName", browserName);
+        capabilities.setCapability("browserVersion", browserVersion);
+
+        bitbarOptions.put("project", "orangeHRM");
+        bitbarOptions.put("apiKey", GlobalConstants.BITBAR_AUTOMATE_KEY);
+        bitbarOptions.put("osVersion", platformVersion);
+        bitbarOptions.put("resolution", "1920x1080");
+        bitbarOptions.put("seleniumVersion", "4");
+
+        capabilities.setCapability("bitbar:options", bitbarOptions);
+
+        try {
+            driver = new RemoteWebDriver(new URL(GlobalConstants.BITBAR_EU_URL), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        driver.get(appURL);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
+        return driver;
+    }
+
+    //CLOUD: Lambda
+    protected WebDriver getBrowserDriverLambda(String appURL, String platformName, String browserName, String browserVersion) {
+        MutableCapabilities capability = null;
+        browserName = browserName.toLowerCase();
+
+        switch (browserName) {
+            case "firefox":
+                FirefoxOptions fOptions = new FirefoxOptions();
+                fOptions.setPlatformName(platformName);
+                fOptions.setBrowserVersion(browserVersion);
+                capability = fOptions;
+                break;
+            case "chrome":
+                ChromeOptions cOptions = new ChromeOptions();
+                cOptions.setPlatformName(platformName);
+                cOptions.setBrowserVersion(browserVersion);
+                capability = cOptions;
+                break;
+            case "edge":
+                EdgeOptions eOptions = new EdgeOptions();
+                eOptions.setPlatformName(platformName);
+                eOptions.setBrowserVersion(browserVersion);
+                capability = eOptions;
+                break;
+            case "safari":
+                SafariOptions sOptions = new SafariOptions();
+                sOptions.setPlatformName(platformName);
+                sOptions.setBrowserVersion(browserVersion);
+                capability = sOptions;
+                break;
+            default:
+                throw new RuntimeException("Browser is not valid!");
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
+
+        HashMap<String, Object> lambdaOptions = new HashMap<String, Object>();
+        lambdaOptions.put("username", GlobalConstants.LAMBDA_USERNAME);
+        lambdaOptions.put("accessKey", GlobalConstants.LAMBDA_AUTOMATE_KEY);
+        lambdaOptions.put("build", "orangeHRM lambdatest - " + formater.format(calendar.getTime()));
+        lambdaOptions.put("project", "orangeHRM");
+        lambdaOptions.put("name", "Run on " + platformName + " | " + browserName + " | " + browserVersion);
+        lambdaOptions.put("w3c", true);
+        lambdaOptions.put("selenium_version", "4.45.0");
+
+        capability.setCapability("LT:Options", lambdaOptions);
+
+        try {
+            driver = new RemoteWebDriver(new URL(GlobalConstants.LAMBDA_URL), capability);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        driver.get(appURL);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
+        return driver;
+    }
+
+    //CLOUD: DeviceFarm
+    protected WebDriver getBrowserDriverDeviceFarm(String appURL, String platformName, String browserName, String browserVersion) {
+        MutableCapabilities capability = null;
+        browserName = browserName.toLowerCase();
+
+        switch (browserName.toLowerCase()) {
+            case "firefox":
+                FirefoxOptions fOptions = new FirefoxOptions();
+                fOptions.setPlatformName(platformName);
+                fOptions.setBrowserVersion(browserVersion);
+                capability = fOptions;
+                break;
+            case "chrome":
+                ChromeOptions cOptions = new ChromeOptions();
+                cOptions.setPlatformName(platformName);
+                cOptions.setBrowserVersion(browserVersion);
+                capability = cOptions;
+                break;
+            case "edge":
+                EdgeOptions eOptions = new EdgeOptions();
+                eOptions.setPlatformName(platformName);
+                eOptions.setBrowserVersion(browserVersion);
+                capability = eOptions;
+                break;
+            case "safari":
+                SafariOptions sOptions = new SafariOptions();
+                sOptions.setPlatformName(platformName);
+                sOptions.setBrowserVersion(browserVersion);
+                capability = sOptions;
+                break;
+            default:
+                throw new RuntimeException("Browser is not valid!");
+        }
+
+        DeviceFarmClient client= DeviceFarmClient.builder().region(Region.US_WEST_2).build();
+        CreateTestGridUrlRequest request = CreateTestGridUrlRequest.builder().expiresInSeconds(300).projectArn(GlobalConstants.AWS_DEVICE_FARM).build();
+        URL testGridUrl = null;
+
+        try {
+            CreateTestGridUrlResponse response = client.createTestGridUrl(request);
+            testGridUrl = new URL(response.url());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        driver = new RemoteWebDriver(testGridUrl,capability);
+
+        driver.get(appURL);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
         return driver;
