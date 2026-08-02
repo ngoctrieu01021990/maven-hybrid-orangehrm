@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="orangeHRM - User" parallel="tests" thread-count="2">
+    <listeners>
+<!--            <listener class-name="repo"/>-->
+    </listeners>
+    <parameter name="environment" value="dev"/>
+
+    <test name="Run on Chrome - Windows">
+        <parameter name="url" value="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"/>
+        <parameter name="osName" value="Windows"/>
+        <parameter name="osVersion" value="11"/>
+        <parameter name="browserName" value="Chrome"/>
+        <parameter name="browserVersion" value="146.0"/>
+        <classes>
+            <class name="com.orangehrm.Level_28_Cloud_BrowserStack"/>
+        </classes>
+    </test>
+
+</suite>

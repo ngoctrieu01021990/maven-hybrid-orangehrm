@@ -7,15 +7,6 @@
     </listeners>
     <parameter name="environment" value="dev"/>
 
-    <test name="Run on Chrome - Windows">
-        <parameter name="platformName" value="Windows 11"/>
-        <parameter name="browserName" value="Chrome"/>
-        <parameter name="browserVersion" value="146.0"/>
-        <classes>
-            <class name="com.orangehrm.Level_28_Cloud_SauceLap"/>
-        </classes>
-    </test>
-
     <test name="Run on Firefox - Windows">
         <parameter name="platformName" value="Windows 10"/>
         <parameter name="browserName" value="Firefox"/>
