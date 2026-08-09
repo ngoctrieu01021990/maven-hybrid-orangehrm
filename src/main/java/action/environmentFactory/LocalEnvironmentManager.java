@@ -1,6 +1,6 @@
-package action.BrowserFactory.EnvironmentFactory;
+package action.environmentFactory;
 
-import action.BrowserFactory.BrowserFactory.*;
+import action.browserFactory.*;
 import org.openqa.selenium.WebDriver;
 
 public class LocalEnvironmentManager implements EnvironmentFactory {
