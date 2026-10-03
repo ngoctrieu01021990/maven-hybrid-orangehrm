@@ -17,7 +17,7 @@ import pageObjects.orangeHRM.LoginPageObject;
 import pageObjects.orangeHRM.editNavigation.EditNavigatorPageObject;
 import pageObjects.orangeHRM.editNavigation.PersonalDetailPageObject;
 import testData.orangehrm.Employee_Data;
-import unilities.DataConfigNet;
+import utilities.DataConfigNet;
 
 
 public class Level_25_DataTest_IV_POJO extends BaseTest {

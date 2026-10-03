@@ -16,9 +16,9 @@ import pageObjects.orangeHRM.EmployeeListPageObject;
 import pageObjects.orangeHRM.LoginPageObject;
 import pageObjects.orangeHRM.editNavigation.PersonalDetailPageObject;
 import testData.model.Employee;
-import unilities.ExcelConfig;
-import unilities.IEnvironment;
-import unilities.PropertiesConfig;
+import utilities.ExcelConfig;
+import utilities.IEnvironment;
+import utilities.PropertiesConfig;
 
 
 public class Level_26_Environment extends BaseTest {

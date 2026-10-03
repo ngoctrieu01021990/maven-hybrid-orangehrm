@@ -15,7 +15,7 @@ import pageObjects.orangeHRM.EmployeeListPageObject;
 import pageObjects.orangeHRM.LoginPageObject;
 import pageObjects.orangeHRM.editNavigation.EditNavigatorPageObject;
 import pageObjects.orangeHRM.editNavigation.PersonalDetailPageObject;
-import unilities.DataConfigNet;
+import utilities.DataConfigNet;
 
 
 public class Level_25_DataTest_II_TestNG extends BaseTest {

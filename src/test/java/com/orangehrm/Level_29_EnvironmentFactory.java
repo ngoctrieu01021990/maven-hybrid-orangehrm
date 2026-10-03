@@ -10,7 +10,7 @@ import pageObjects.PageGenerator;
 import pageObjects.orangeHRM.DashboardPageObject;
 import pageObjects.orangeHRM.EmployeeListPageObject;
 import pageObjects.orangeHRM.LoginPageObject;
-import unilities.IEnvironment;
+import utilities.IEnvironment;
 
 
 public class Level_29_EnvironmentFactory extends BaseTest {

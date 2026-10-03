@@ -15,7 +15,7 @@ import pageObjects.orangeHRM.EmployeeListPageObject;
 import pageObjects.orangeHRM.LoginPageObject;
 import pageObjects.orangeHRM.editNavigation.PersonalDetailPageObject;
 import testData.model.Employee;
-import unilities.ExcelConfig;
+import utilities.ExcelConfig;
 
 
 public class Level_25_DataTest_VI_Excel extends BaseTest {
