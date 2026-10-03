@@ -1,4 +1,4 @@
-package unilities;
+package utilities;
 import net.datafaker.Faker;
 
 import java.util.Locale;
