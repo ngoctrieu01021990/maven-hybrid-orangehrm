@@ -1,4 +1,4 @@
-package unilities;
+package utilities;
 
 import org.aeonbits.owner.Config;
 

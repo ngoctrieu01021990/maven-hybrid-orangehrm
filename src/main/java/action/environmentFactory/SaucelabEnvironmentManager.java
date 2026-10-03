@@ -1,4 +1,4 @@
-package action.BrowserFactory.EnvironmentFactory;
+package action.environmentFactory;
 
 import core.GlobalConstants;
 import org.openqa.selenium.MutableCapabilities;

@@ -1,4 +1,4 @@
-package unilities;
+package utilities;
 
 import core.GlobalConstants;
 import org.apache.poi.ss.usermodel.Cell;

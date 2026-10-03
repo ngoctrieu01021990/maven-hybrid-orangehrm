@@ -1,4 +1,4 @@
-package action.BrowserFactory.BrowserFactory;
+package action.browserFactory;
 
 import org.openqa.selenium.WebDriver;
 

@@ -1,4 +1,4 @@
-package action.BrowserFactory.BrowserFactory;
+package action.browserFactory;
 
 public class BrowserNotSupportedException extends IllegalStateException{
     public BrowserNotSupportedException(String browserName){

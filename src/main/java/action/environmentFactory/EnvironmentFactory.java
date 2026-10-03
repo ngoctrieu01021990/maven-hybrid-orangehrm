@@ -1,4 +1,4 @@
-package action.BrowserFactory.EnvironmentFactory;
+package action.environmentFactory;
 
 import org.openqa.selenium.WebDriver;
 
