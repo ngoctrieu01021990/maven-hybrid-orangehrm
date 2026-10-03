@@ -1,13 +1,17 @@
 package core;
 
-import action.BrowserFactory.BrowserFactory.*;
-import action.BrowserFactory.EnvironmentFactory.*;
+import action.browserFactory.*;
+import action.environmentFactory.*;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -27,42 +31,73 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class BaseTest {
-    private WebDriver driver;
+    protected WebDriver driver;
+    private static ThreadLocal<WebDriver> threadDriver = new ThreadLocal<WebDriver>();
+
+    public WebDriver getWebDriver() {
+        return threadDriver.get();
+    }
 
     protected WebDriver getBrowserDriver(String serverName, String browserName) {
         BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
 
         switch (browserList) {
             case FIREFOX:
-                driver = new FirefoxBrowserManager().getDriver();
+                threadDriver.set(new FirefoxDriver());
                 break;
             case CHROME:
-                driver = new ChromeBrowserManager().getDriver();
+                threadDriver.set(new ChromeDriver());
                 break;
             case SAFARI:
-                driver = new SafariBrowserManager().getDriver();
+                threadDriver.set(new SafariDriver());
                 break;
             case EDGE:
-                driver = new EdgeBrowserManager().getDriver();
-                break;
-            case HEAD_CHROME:
-                driver = new ChromeHeadlessBrowserManager().getDriver();
-                break;
-            case HEAD_FIREFOX:
-                driver = new FirefoxHeadlessBrowserManager().getDriver();
-                break;
-            case HEAD_EDGE:
-                driver = new EdgeHeadlessBrowserManager().getDriver();
+                threadDriver.set(new EdgeDriver());
                 break;
             default:
                 throw new RuntimeException("Browser name is not valid.");
         }
-        driver.get(getEnvironmentUrl(serverName));
+        threadDriver.get().get(getEnvironmentUrl(serverName));
         //driver.manage().window().setPosition(new Point(0,0));
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
-        return driver;
+        threadDriver.get().manage().window().maximize();
+        threadDriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
+        return threadDriver.get();
     }
+
+//    protected WebDriver getBrowserDriver(String serverName, String browserName) {
+//        BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
+//
+//        switch (browserList) {
+//            case FIREFOX:
+//                driver = new FirefoxBrowserManager().getDriver();
+//                break;
+//            case CHROME:
+//                driver = new ChromeBrowserManager().getDriver();
+//                break;
+//            case SAFARI:
+//                driver = new SafariBrowserManager().getDriver();
+//                break;
+//            case EDGE:
+//                driver = new EdgeBrowserManager().getDriver();
+//                break;
+//            case HEAD_CHROME:
+//                driver = new ChromeHeadlessBrowserManager().getDriver();
+//                break;
+//            case HEAD_FIREFOX:
+//                driver = new FirefoxHeadlessBrowserManager().getDriver();
+//                break;
+//            case HEAD_EDGE:
+//                driver = new EdgeHeadlessBrowserManager().getDriver();
+//                break;
+//            default:
+//                throw new RuntimeException("Browser name is not valid.");
+//        }
+//        driver.get(getEnvironmentUrl(serverName));
+//        //driver.manage().window().setPosition(new Point(0,0));
+//        driver.manage().window().maximize();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
+//        return driver;
+//    }
 
     //CLOUD: BrowserStack
     protected WebDriver getBrowserDriverBrowserStack(String appURL, String osName, String osVersion, String browserName, String browserVersion) {
@@ -341,7 +376,7 @@ public class BaseTest {
         String cmd = null;
         try {
             String osName = GlobalConstants.OS_NAME.toLowerCase();
-            String driverInstanceName = driver.toString().toLowerCase();
+            String driverInstanceName = threadDriver.toString().toLowerCase();
             String browserDriverName = null;
 
             if (driverInstanceName.contains("chrome")) {
