@@ -1,6 +1,6 @@
 package core;
 
-import action.browserFactory.*;
+import action.browserFactory.BrowserList;
 import action.environmentFactory.*;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
@@ -21,7 +21,6 @@ import software.amazon.awssdk.services.devicefarm.model.CreateTestGridUrlRequest
 import software.amazon.awssdk.services.devicefarm.model.CreateTestGridUrlResponse;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -38,7 +37,7 @@ public class BaseTest {
         return threadDriver.get();
     }
 
-    protected WebDriver getBrowserDriver(String serverName, String browserName) {
+    protected WebDriver getBrowserDriver(String appUrl, String browserName) {
         BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
 
         switch (browserList) {
@@ -57,7 +56,8 @@ public class BaseTest {
             default:
                 throw new RuntimeException("Browser name is not valid.");
         }
-        threadDriver.get().get(getEnvironmentUrl(serverName));
+        //threadDriver.get().get(getEnvironmentUrl(serverName));
+        threadDriver.get().get(appUrl);
         //driver.manage().window().setPosition(new Point(0,0));
         threadDriver.get().manage().window().maximize();
         threadDriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIME));
@@ -349,7 +349,7 @@ public class BaseTest {
         return driver;
     }
 
-    private String getEnvironmentUrl(String environmentName) {
+   /* private String getEnvironmentUrl(String environmentName) {
         String envUrl = null;
         switch (environmentName) {
             case "dev":
@@ -366,56 +366,79 @@ public class BaseTest {
                 break;
         }
         return envUrl;
-    }
+    }*/
 
     public WebDriver getDriver() {
         return this.driver;
     }
 
+//    protected void closeBrowser() {
+//        String cmd = null;
+//        try {
+//            String osName = GlobalConstants.OS_NAME.toLowerCase();
+//            String driverInstanceName = threadDriver.toString().toLowerCase();
+//            String browserDriverName = null;
+//
+//            if (driverInstanceName.contains("chrome")) {
+//                browserDriverName = "chromedriver";
+//            } else if (driverInstanceName.contains("firefox")) {
+//                browserDriverName = "geckodriver";
+//            } else if (driverInstanceName.contains("edge")) {
+//                browserDriverName = "msedgedriver";
+//            } else {
+//                throw new RuntimeException("Driver instance is not support.");
+//            }
+//
+//            if (osName.contains("window")) {
+//                cmd = "taskkill /F /FI \"IMAGENAME eq " + browserDriverName + "*\"";
+//            } else {
+//                cmd = "pkill " + browserDriverName;
+//            }
+//
+//            if (driver != null) {
+//                driver.manage().deleteAllCookies();
+//                driver.quit();
+//            }
+//        } catch (Exception e) {
+//            e.getMessage();
+//        } finally {
+//            try {
+//                Process process = Runtime.getRuntime().exec(cmd);
+//                process.waitFor();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
     protected void closeBrowser() {
-        String cmd = null;
         try {
-            String osName = GlobalConstants.OS_NAME.toLowerCase();
-            String driverInstanceName = threadDriver.toString().toLowerCase();
-            String browserDriverName = null;
-
-            if (driverInstanceName.contains("chrome")) {
-                browserDriverName = "chromedriver";
-            } else if (driverInstanceName.contains("firefox")) {
-                browserDriverName = "geckodriver";
-            } else if (driverInstanceName.contains("edge")) {
-                browserDriverName = "msedgedriver";
-            } else {
-                throw new RuntimeException("Driver instance is not support.");
-            }
-
-            if (osName.contains("window")) {
-                cmd = "taskkill /F /FI \"IMAGENAME eq " + browserDriverName + "*\"";
-            } else {
-                cmd = "pkill " + browserDriverName;
-            }
-
             if (driver != null) {
                 driver.manage().deleteAllCookies();
                 driver.quit();
+                driver = null;
             }
         } catch (Exception e) {
-            e.getMessage();
-        } finally {
-            try {
-                Process process = Runtime.getRuntime().exec(cmd);
-                process.waitFor();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            e.printStackTrace();
         }
     }
 
+//    protected void closeBrowser(WebDriver driver) {
+//        if (null == driver) {
+//            driver.quit();
+//        }
+//    }
+
     protected void closeBrowser(WebDriver driver) {
-        if (null == driver) {
-            driver.quit();
+        if (driver != null) {
+            try {
+                driver.manage().deleteAllCookies();
+                driver.quit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

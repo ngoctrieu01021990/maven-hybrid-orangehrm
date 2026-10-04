@@ -7,7 +7,8 @@ public class BasePageUI {
     public static final String TEXTBOX_BY_NAME = "xpath=//input[@name='%s']";
     public static final String BUTTON_BY_TEXT = "xpath=//button[contains(string(),'%s')]";
     public static final String BUTTON_BY_TEXT_IN_MAIN_TITLE = "xpath=//h6[text()='%s']/following-sibling::form//button[contains(string(),'%s')]";
-    public static final String MODULE_BY_TEXT_IN_MENU_ITEM = "xpath=//span[text()='%s']/parent::a[contains(@class,'oxd-main-menu-item')]";
+    //public static final String MODULE_BY_TEXT_IN_MENU_ITEM = "xpath=//span[text()='%s']/parent::a[contains(@class,'oxd-main-menu-item')]";
+    public static final String MODULE_BY_TEXT_IN_MENU_ITEM = "xpath=//a[contains(@class,'oxd-main-menu-item')][.//span[normalize-space()='%s']]";
     public static final String MODULE_BY_TEXT_IN_HEADER = "xpath=//a[text()='%s']";
 
 
