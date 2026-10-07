@@ -9,9 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
@@ -47,7 +45,10 @@ public class BaseTest {
                 System.setProperty("webdriver.gecko.driver",
                         "C:\\Windows\\System32\\geckodriver.exe");
 
-                threadDriver.set(new FirefoxDriver());
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.addArguments("--allow-system-access");
+
+                threadDriver.set(new FirefoxDriver(firefoxOptions));
                 break;
 
 //            case FIREFOX:
