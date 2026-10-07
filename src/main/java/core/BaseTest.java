@@ -9,7 +9,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
@@ -42,8 +44,21 @@ public class BaseTest {
 
         switch (browserList) {
             case FIREFOX:
-                threadDriver.set(new FirefoxDriver());
+                System.setProperty("webdriver.gecko.driver",
+                        "C:\\Windows\\System32\\geckodriver.exe");
+
+                GeckoDriverService service = new GeckoDriverService.Builder()
+                        .withLogFile(new File("target/geckodriver.log"))
+                        .withLogLevel(FirefoxDriverLogLevel.DEBUG)
+                        .withTruncatedLogs(false)
+                        .build();
+
+                threadDriver.set(new FirefoxDriver(service));
                 break;
+
+//            case FIREFOX:
+//                threadDriver.set(new FirefoxDriver());
+//                break;
             case CHROME:
                 threadDriver.set(new ChromeDriver());
                 break;
