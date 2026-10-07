@@ -47,13 +47,7 @@ public class BaseTest {
                 System.setProperty("webdriver.gecko.driver",
                         "C:\\Windows\\System32\\geckodriver.exe");
 
-                GeckoDriverService service = new GeckoDriverService.Builder()
-                        .withLogFile(new File("target/geckodriver.log"))
-                        .withLogLevel(FirefoxDriverLogLevel.DEBUG)
-                        .withTruncatedLogs(false)
-                        .build();
-
-                threadDriver.set(new FirefoxDriver(service));
+                threadDriver.set(new FirefoxDriver());
                 break;
 
 //            case FIREFOX:
