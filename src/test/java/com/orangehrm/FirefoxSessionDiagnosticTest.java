@@ -2,6 +2,7 @@ package com.orangehrm;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.GeckoDriverService;
 import org.testng.annotations.Test;
 
 public class FirefoxSessionDiagnosticTest {
@@ -21,9 +22,18 @@ public class FirefoxSessionDiagnosticTest {
                     "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
             );
 
-            System.out.println("STEP 1: Starting FirefoxDriver");
+            // Test headless để loại trừ vấn đề giao diện Windows
+            options.addArguments("-headless");
 
-            driver = new FirefoxDriver(options);
+            GeckoDriverService service =
+                    new GeckoDriverService.Builder()
+                            .withLogOutput(System.out)
+                            .build();
+
+            System.out.println("STEP 1: Starting FirefoxDriver");
+            System.out.println("Firefox options: " + options);
+
+            driver = new FirefoxDriver(service, options);
 
             System.out.println("STEP 2: Firefox session created");
             System.out.println(
