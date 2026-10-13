@@ -42,12 +42,22 @@ public class BaseTest {
 
         switch (browserList) {
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver",
-                        "C:\\Windows\\System32\\geckodriver.exe");
+                System.setProperty(
+                        "webdriver.gecko.driver",
+                        "C:\\Windows\\System32\\geckodriver.exe"
+                );
+
+                System.setProperty(
+                        "webdriver.gecko.driver.log",
+                        "C:\\Windows\\Temp\\geckodriver-selenium.log"
+                );
 
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.addArguments("--allow-system-access");
+                firefoxOptions.setBinary(
+                        "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+                );
 
+                // Tạm bỏ các tùy chỉnh để kiểm tra khởi tạo cơ bản
                 threadDriver.set(new FirefoxDriver(firefoxOptions));
                 break;
 
