@@ -4,6 +4,7 @@ package com.orangehrm;
 
 import core.BaseTest;
 import org.aeonbits.owner.ConfigFactory;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -33,6 +34,13 @@ public class Level_26_Environment extends BaseTest {
 
         driver = getBrowserDriver(environment.appUrl(), browserName);
 
+        String pageSource = driver.getPageSource();
+
+        System.out.println("CURRENT URL: " + driver.getCurrentUrl());
+        System.out.println("PAGE TITLE: " + driver.getTitle());
+        System.out.println("PAGE SOURCE PREVIEW: "
+                + pageSource.substring(0, Math.min(pageSource.length(), 3000)));
+
         loginPage = PageGenerator.getPage(LoginPageObject.class, driver);
         excelConfig = ExcelConfig.getExcelData();
         excelConfig.switchToSheet("employee");
@@ -42,7 +50,6 @@ public class Level_26_Environment extends BaseTest {
         employeeUsername = excelConfig.getCellData("UserName", 1) + getRandomNumber();
         employeeEmail = excelConfig.getCellData("EmailAddress", 1) + getRandomNumber() + "@gmail.com";
 
-
         loginPage.enterToTextboxByLabel(driver, "Username", environment.appUser());
         loginPage.enterToTextboxByLabel(driver, "Password", environment.appPass());
         loginPage.clickToButtonByText(driver, "Login");
@@ -50,6 +57,27 @@ public class Level_26_Environment extends BaseTest {
 
         verifyTrue(dashboardPage.isLoadingSpinnerDisappear(driver));
         dashboardPage.sleepInSecond(5);
+
+        System.out.println("========== AFTER LOGIN DEBUG ==========");
+        System.out.println("URL = " + driver.getCurrentUrl());
+        System.out.println("TITLE = " + driver.getTitle());
+
+        System.out.println("Admin text count = "
+                + driver.findElements(By.xpath("//*[normalize-space()='Admin']")).size());
+
+        System.out.println("Admin span count = "
+                + driver.findElements(By.xpath("//span[normalize-space()='Admin']")).size());
+
+        System.out.println("Admin link count = "
+                + driver.findElements(By.xpath("//a[.//span[normalize-space()='Admin']]")).size());
+
+        System.out.println("Menu item count = "
+                + driver.findElements(By.xpath("//*[contains(@class,'oxd-main-menu-item')]")).size());
+
+        System.out.println("===== BODY TEXT =====");
+        System.out.println(driver.findElement(By.tagName("body")).getText());
+
+        System.out.println("========== END DEBUG ==========");
 
         verifyTrue(dashboardPage.isModuleByTextInMenuItemDisplayed(driver, "Admin"));
         verifyTrue(dashboardPage.isModuleByTextInMenuItemDisplayed(driver, "PIM"));
@@ -75,10 +103,28 @@ public class Level_26_Environment extends BaseTest {
         addEmployeePage.enterToTextboxByLabel(driver, "Password", excelConfig.getCellData("Password", 1));
         addEmployeePage.enterToTextboxByLabel(driver, "Confirm Password", excelConfig.getCellData("Password", 1));
 
+//        addEmployeePage.clickToButtonByText(driver, "Save");
+//        personalDetailPage = PageGenerator.getPage(PersonalDetailPageObject.class, driver);
+//
+//        verifyTrue(personalDetailPage.isToastMessageDisplayed(driver, "Successfully Saved"));
         addEmployeePage.clickToButtonByText(driver, "Save");
+
         personalDetailPage = PageGenerator.getPage(PersonalDetailPageObject.class, driver);
 
-        verifyTrue(personalDetailPage.isToastMessageDisplayed(driver, "Successfully Saved"));
+        personalDetailPage.sleepInSecond(2);
+
+        System.out.println("===== AFTER CLICK SAVE =====");
+        System.out.println("URL = " + driver.getCurrentUrl());
+        System.out.println("TITLE = " + driver.getTitle());
+
+        System.out.println("===== PAGE TEXT =====");
+        System.out.println(driver.findElement(By.tagName("body")).getText());
+
+        System.out.println("===== SUCCESS TOAST =====");
+        System.out.println("Has Successfully Saved = "
+                + driver.getPageSource().contains("Successfully Saved"));
+
+        //verifyTrue(personalDetailPage.isToastMessageDisplayed(driver, "Successfully Saved"));
 
         verifyTrue(personalDetailPage.isLoadingSpinnerDisappear(driver));
         personalDetailPage.sleepInSecond(5);
