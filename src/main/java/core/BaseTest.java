@@ -57,7 +57,12 @@ public class BaseTest {
                         "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
                 );
 
-                // Tạm bỏ các tùy chỉnh để kiểm tra khởi tạo cơ bản
+                // Jenkins chạy dưới SYSTEM: dùng Headless.
+                // Local chạy Firefox có giao diện bình thường.
+                if (System.getenv("JENKINS_HOME") != null) {
+                    firefoxOptions.addArguments("-headless");
+                }
+
                 threadDriver.set(new FirefoxDriver(firefoxOptions));
                 break;
 
